@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EcoBridge — экотуризм по Казахстану</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Onest:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#E8F1F2;--ink:#0D2B33;--mut:#4A6A72;--card:#FFFFFF;--acc:#0F6E7A;--gold:#C98A12;--line:#C5D8DB;--on:#FFFFFF;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B1A1F;--ink:#E6F0F1;--mut:#9DB6BB;--card:#122A31;--acc:#4FC3CF;--gold:#F0B84A;--line:#25434B;--on:#0B1A1F;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0B1A1F;--ink:#E6F0F1;--mut:#9DB6BB;--card:#122A31;--acc:#4FC3CF;--gold:#F0B84A;--line:#25434B;--on:#0B1A1F;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 Onest,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.logo{font:700 1.15rem Unbounded,system-ui,sans-serif;text-decoration:none;letter-spacing:.01em}
+.logo span{color:var(--acc)}
+nav a{margin-left:18px;text-decoration:none;color:var(--mut);font-weight:500}
+nav a:hover{color:var(--ink)}
+.hero{display:grid;gap:28px;align-items:center;padding:24px 0 48px}
+@media(min-width:820px){.hero{grid-template-columns:1.05fr 1fr}}
+h1{font:700 clamp(1.9rem,5.6vw,3.3rem)/1.12 Unbounded,system-ui,sans-serif;margin:0 0 18px}
+.lead{color:var(--mut);max-width:46ch;margin:0 0 24px}
+.btn{display:inline-block;background:var(--acc);color:var(--on);padding:13px 22px;border-radius:999px;font-weight:600;text-decoration:none}
+.btn:hover{filter:brightness(1.1)}
+svg.map{width:100%;height:auto;max-height:420px}
+.route{fill:none;stroke:var(--acc);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.6s ease-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.node{cursor:pointer}
+.node circle{fill:var(--card);stroke:var(--acc);stroke-width:2.5;transition:fill .2s,r .2s}
+.node.on circle{fill:var(--gold);stroke:var(--gold)}
+.node text{fill:var(--ink);font:600 13px Onest,system-ui,sans-serif;paint-order:stroke;stroke:var(--bg);stroke-width:4px;stroke-linejoin:round}
+.node:hover circle{fill:var(--gold)}
+section{padding:40px 0}
+h2{font:700 clamp(1.4rem,3.6vw,2.1rem)/1.2 Unbounded,system-ui,sans-serif;margin:0 0 8px}
+.sub{color:var(--mut);margin:0 0 22px;max-width:60ch}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.tabs button{font:500 1rem Onest,system-ui,sans-serif;border:1.5px solid var(--line);background:transparent;color:var(--ink);padding:9px 16px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:clamp(20px,4vw,36px);display:grid;gap:26px}
+@media(min-width:820px){.panel{grid-template-columns:1.4fr 1fr}}
+.panel h3{font:700 1.45rem Unbounded,system-ui,sans-serif;margin:0 0 8px}
+.panel .lead{margin-bottom:18px}
+.places{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.places li{padding-left:16px;border-left:3px solid var(--gold)}
+.places b{display:block}
+.places span{color:var(--mut)}
+.facts{display:grid;gap:16px;align-content:start}
+.fact{background:var(--bg);border-radius:12px;padding:16px}
+.fact b{display:block;margin-bottom:4px}
+.fact span{color:var(--mut)}
+.rules{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.rules div{border-top:3px solid var(--acc);padding-top:12px}
+.rules b{display:block;margin-bottom:4px}
+.rules span{color:var(--mut)}
+footer{border-top:1px solid var(--line);margin-top:32px;padding:24px 0 32px;color:var(--mut);font-size:.95rem}
+@media(prefers-reduced-motion:reduce){.route{animation:none;stroke-dashoffset:0}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="#">Eco<span>Bridge</span></a>
+  <nav><a href="#regions">Районы</a><a href="#rules">Правила</a></nav>
+</header>
+
+<main>
+<div class="hero">
+  <div>
+    <h1>Пять районов Казахстана — один маршрут</h1>
+    <p class="lead">EcoBridge соединяет центр, север, юг, запад и восток страны бережными маршрутами: по тропам заповедников, озёрам, каньонам и древним городам.</p>
+    <a class="btn" href="#regions">Выбрать район</a>
+  </div>
+  <svg class="map" viewBox="0 0 400 300" role="group" aria-label="Схема маршрутов EcoBridge: нажмите на район">
+    <path class="route" pathLength="1" d="M200 150 Q 215 100 200 45"/>
+    <path class="route" pathLength="1" d="M200 150 Q 195 205 220 255"/>
+    <path class="route" pathLength="1" d="M200 150 Q 120 130 50 160"/>
+    <path class="route" pathLength="1" d="M200 150 Q 280 160 350 130"/>
+    <g class="node" data-k="central" tabindex="0" role="button" aria-label="Центральный"><circle cx="200" cy="150" r="14"/><text x="220" y="154">Центральный</text></g>
+    <g class="node" data-k="north" tabindex="0" role="button" aria-label="Северный"><circle cx="200" cy="45" r="14"/><text x="200" y="22" text-anchor="middle">Северный</text></g>
+    <g class="node" data-k="south" tabindex="0" role="button" aria-label="Южный"><circle cx="220" cy="255" r="14"/><text x="220" y="288" text-anchor="middle">Южный</text></g>
+    <g class="node" data-k="west" tabindex="0" role="button" aria-label="Западный"><circle cx="50" cy="160" r="14"/><text x="50" y="192" text-anchor="middle">Западный</text></g>
+    <g class="node" data-k="east" tabindex="0" role="button" aria-label="Восточный"><circle cx="350" cy="130" r="14"/><text x="350" y="162" text-anchor="middle">Восточный</text></g>
+  </svg>
+</div>
+
+<section id="regions">
+  <h2>Районы маршрута</h2>
+  <p class="sub">Выберите район на схеме или в списке — внутри места, лучший сезон и совет для бережной поездки.</p>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="panel" id="panel" role="tabpanel" aria-live="polite"></div>
+</section>
+
+<section id="rules">
+  <h2>Правила EcoBridge</h2>
+  <p class="sub">Четыре привычки, которые делают поездку безопасной для природы и местных жителей.</p>
+  <div class="rules">
+    <div><b>Идите по тропам</b><span>Не срезайте путь: в степи и горах след от колёс или ног заживает годами.</span></div>
+    <div><b>Уносите мусор с собой</b><span>Всё, что привезли, увозите обратно. Вблизи воды костры только в оборудованных местах.</span></div>
+    <div><b>Выбирайте местных</b><span>Гиды, гостевые дома и мастера из района оставляют доход там, где вы путешествуете.</span></div>
+    <div><b>Не тревожьте природу</b><span>Держите дистанцию до животных и птиц, не рвите растения и не берите камни на память.</span></div>
+  </div>
+</section>
+</main>
+
+<footer>EcoBridge — туристический проект о Казахстане. Перед поездкой уточняйте режим работы парков и разрешения на въезд в заповедные зоны.</footer>
+</div>
+
+<script>
+var R={
+central:{n:'Центральный Казахстан',lead:'Сердце страны: Астана, Карагандинская и Улытауская области. Открытая степь, гранитные массивы и места, связанные с историей кочевников.',
+p:[['Улытау','Древние мавзолеи, в том числе мавзолей Жошы-хана, и холмистая степь вокруг.'],['Каркаралинский национальный парк','Сосновые леса, скалы и озёра — удобные пешие маршруты на день.'],['Озеро Балхаш','Одно из крупнейших озёр региона: западная часть пресная, восточная солоноватая.'],['Астана','Современная столица: пешие и велопрогулки по набережной и паркам.']],
+b:'Конец мая — сентябрь',t:'В степи мало тени и воды: берите запас воды и головной убор.'},
+north:{n:'Северный Казахстан',lead:'Акмолинская, Костанайская и Северо-Казахстанская области: сосновые боры, чистые озёра и степные заповедники.',
+p:[['Бурабай','Горы, сосны и озёра Щучинско-Боровской курортной зоны, много размеченных троп.'],['Коргалжынский заповедник','Озёра и камыши на Нуре — место гнездовья птиц, включая розовых фламинго.'],['Наурзумский заповедник','Степные озёра и сосновые леса с богатой птичьей жизнью.'],['Окжетпес','Скальный массив над Бурабаем — короткий подъём с видом на озеро.']],
+b:'Июнь — сентябрь; для птиц — май и август',t:'В заповедниках ходите только по разрешённым маршрутам и не подходите к гнёздам.'},
+south:{n:'Южный Казахстан',lead:'Туркестанская область и юго-восток: города Шёлкового пути, горные заповедники и каньоны. Здесь жарко летом и мягко весной и осенью.',
+p:[['Туркестан','Мавзолей Ходжи Ахмеда Ясави — главная святыня и объект Всемирного наследия ЮНЕСКО.'],['Аксу-Жабаглы','Один из старейших заповедников региона: каньоны, тюльпаны весной, горные тропы.'],['Сайрам-Угамский парк','Западный Тянь-Шань: альпийские луга и водопады недалеко от Шымкента.'],['Чарынский каньон и Кольсай','Красные скалы каньона и цепь горных озёр в Тянь-Шане.']],
+b:'Апрель — июнь и сентябрь — октябрь',t:'Летом выходите на маршруты на рассвете, а в горы берите тёплую одежду.'},
+west:{n:'Западный Казахстан',lead:'Мангистау, Атырау, Западно-Казахстанская область: пустыни, плато Устюрт и побережье Каспия.',
+p:[['Бозжыра','Белые скалы и каньон на плато Устюрт — один из самых необычных пейзажей страны.'],['Долина замков (Кызылкия)','Причудливые скалы, похожие на замки; хороши на закате.'],['Каспийское побережье у Актау','Морские прогулки, закаты и птицы в период перелёта.'],['Подземные мечети Мангистау','Мечети Бекет-Ата и Шопан-Ата — места паломничества, вырубленные в скалах.']],
+b:'Апрель — июнь и сентябрь — октябрь',t:'В пустыне ездите только по накатанным дорогам и берите гида: ориентиры там редки.'},
+east:{n:'Восточный Казахстан',lead:'Алтай и прилегающие районы: тайга, горные реки и озёра в окружении снежных вершин.',
+p:[['Катон-Карагайский парк','Алтайские горы, вид на Белуху и ключи в долине Рахмановских ключей.'],['Озеро Маркаколь','Высокогорное озеро в заповедной зоне, окружённое кедровой тайгой.'],['Западно-Алтайский заповедник','Лесные и горные маршруты рядом с Риддером.'],['Бухтарминское водохранилище','Прогулки на лодке и спокойные пляжи на берегах.']],
+b:'Июль — сентябрь; зимой — лыжи у Риддера',t:'Для приграничных зон Алтая заранее оформляйте разрешения.'}
+};
+var order=['central','north','south','west','east'],tabs=document.getElementById('tabs'),panel=document.getElementById('panel');
+order.forEach(function(k){var b=document.createElement('button');b.type='button';b.setAttribute('role','tab');b.dataset.k=k;b.textContent=R[k].n.replace(' Казахстан','');b.onclick=function(){show(k)};tabs.appendChild(b)});
+function show(k){
+  var r=R[k];
+  [].forEach.call(tabs.children,function(b){b.setAttribute('aria-selected',b.dataset.k===k)});
+  [].forEach.call(document.querySelectorAll('.node'),function(n){n.classList.toggle('on',n.dataset.k===k)});
+  panel.innerHTML='<div><h3>'+r.n+'</h3><p class="lead">'+r.lead+'</p><ul class="places">'+r.p.map(function(x){return '<li><b>'+x[0]+'</b><span>'+x[1]+'</span></li>'}).join('')+'</ul></div><div class="facts"><div class="fact"><b>Лучшее время</b><span>'+r.b+'</span></div><div class="fact"><b>Совет EcoBridge</b><span>'+r.t+'</span></div></div>';
+}
+[].forEach.call(document.querySelectorAll('.node'),function(n){
+  n.addEventListener('click',function(){show(n.dataset.k);document.getElementById('regions').scrollIntoView()});
+  n.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();n.dispatchEvent(new Event('click'))}});
+});
+show('central');
+</script>
+</body>
+</html>
